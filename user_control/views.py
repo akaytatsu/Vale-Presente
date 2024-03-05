@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from .forms.add_user_forms import AddUserForm
 from .models import UserActivities
 
@@ -16,7 +17,7 @@ def add_user_activity(user, action):
 @login_required
 def cadastrar_usuario(request):
   if not request.user.is_staff:
-        return HttpResponseForbidden("Acesso negado. Você precisa ser administrador.")
+    return HttpResponseForbidden("Acesso negado. Você precisa ser administrador.")
   if request.method == "POST":
     form_usuario = AddUserForm(request.POST)
     form_usuario.fields['fullname'].label = "Nome"
@@ -25,5 +26,14 @@ def cadastrar_usuario(request):
       return redirect('listar_usuarios')
   else:
     form_usuario = AddUserForm()
-  return render(request, 'usuarios/form_usuario.html', {'form_usuario': form_usuario})
+  return render(request, 'users/form_users.html', {'form_usuario': form_usuario})
+
+
+@login_required
+def listar_usuarios(request):
+  if not request.user.is_staff:
+    return HttpResponseForbidden("Acesso negado. Você precisa ser administrador.")
+  User = get_user_model()
+  usuarios = User.objects.all()
+  return render(request, 'users/list_users.html', {'usuarios': usuarios})
 
