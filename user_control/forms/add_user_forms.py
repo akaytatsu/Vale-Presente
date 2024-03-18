@@ -11,5 +11,5 @@ class AddUserForm(UserCreationForm):
   
   class Meta(UserCreationForm.Meta):
     model = get_user_model()
-    fields = ['fullname', 'email', 'password1', 'password2']
-    labels = {'fullname': 'Nome'}
+    fields = ['fullname', 'email', 'password1', 'password2', 'user_store']
+    labels = {'fullname': 'Nome', 'user_store': 'Loja'}

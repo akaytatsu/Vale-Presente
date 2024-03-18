@@ -5,10 +5,10 @@
 <div class="card card-primary">
   <div class="card-header">
     <div class="card-title">
-      {% if request.resolver_match.url_name == 'add_store' %}
-      Cadastrar Loja
+      {% if request.resolver_match.url_name == 'add_barcode' %}
+      Cadastrar Código de Barra
       {% else %}
-      Editar Loja
+      Editar Código de Barra
       {% endif %}
     </div>
   </div>
@@ -20,4 +20,5 @@
     </form>
   </div>
 </div>
+<a href="{% url 'list_barcode' %}" class="btn btn-primary">Voltar</a>
 {% endblock content %}

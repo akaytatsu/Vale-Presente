@@ -16,7 +16,6 @@
 Links de navegação 
 {%endblock nav_heading%}
 {% block nav_links %}
-    {% if request.user.is_superuser or request.user.is_staff %}
     <li class="nav-item has-tree-view ">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa fa-user"></i> <p>Usuários</p>
@@ -25,29 +24,56 @@ Links de navegação
         </a>
         <ul class="nav nav-treeview menu-open">
                 <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{% url 'listar_usuarios' %}" class="nav-link">
                             <i class="nav-icon fas fa-circle"></i> Cadastrar Usuário
                         </a>
                 </li>
         </ul>
     <li class="nav-item has-tree-view ">
         <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-object-group"></i> <p>Serviços</p>
+            <i class="nav-icon fas fa-object-group"></i> <p>Cadastrar</p>
             <p><i class="right fas fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview menu-open">
                 <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-circle"></i> Cadastrar Vale Presente
+                        <a href="{% url 'list_store' %}" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i> Cadastrar Loja
                         </a>
                 </li>
                 <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-circle"></i> Descrição de Atividade
+                        <a href="{% url 'list_giftvoucher' %}" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i> Cadastrar Vale Presente
                         </a>
                 </li>
         </ul>
     </li>
-    {% endif %}
+    <li class="nav-item has-tree-view ">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-object-group"></i> <p>Painel</p>
+            <p><i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview menu-open">
+                <li class="nav-item">
+                        <a href="{% url 'dashboard_barcode' %}" class="nav-link">
+                            <i class="nav-icon fa fa-shopping-cart"></i> Vales Presentes
+                        </a>
+                </li>
+        </ul>
+    </li>
+    <li class="nav-item has-tree-view ">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-object-group"></i> <p>Vendas</p>
+            <p><i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview menu-open">
+                <li class="nav-item">
+                        <a href="{% url 'activities_barcode' %}" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i> Vales Presentes
+                        </a>
+                </li>
+        </ul>
+    </li>
 {% endblock nav_links %} 

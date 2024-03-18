@@ -26,6 +26,33 @@ class CustomUserManager(BaseUserManager):
     return user
 
 
+class Store(models.Model):
+  name = models.CharField(max_length=100)
+  address = models.CharField(max_length=255)
+  email = models.CharField(max_length=255)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+  class Meta:
+    ordering = ['id']
+  
+  def save(self, *args, **kwargs):
+    action = f'Adicionado nova loja: {self.name}'
+    if self.pk is not None:
+        action = f'Atualizado o nome da loja {self.old_name} para {self.name}'
+    super().save(*args, **kwargs)
+    #add_user_activity()
+  
+  def delete(self, *args, **kwargs):
+    created_by = self.created_by
+    action = f'Deletado a loja: {self.name}'
+    super().delete(*args, **kwargs)
+    #add_user_activity()
+
+  def __str__(self):
+    return self.name
+
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     fullname = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -36,6 +63,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True)
+    user_store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='users', null=True)
 
     USERNAME_FIELD = "email"
     objects = CustomUserManager()
