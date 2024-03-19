@@ -13,9 +13,6 @@ urlpatterns = [
     path('giftvoucher/list', list_giftvoucher, name='list_giftvoucher'),
     
     
-    path('barcode/add', add_barcode, name='add_barcode'),
-    path('barcode/edit/<int:id>', edit_barcode, name='edit_barcode'),
-    path('barcode/delete/<int:id>', delete_barcode, name='delete_barcode'),
     path('barcode/used/<int:id>', use_barcode, name='use_barcode'),
     path('barcode/list', list_barcode, name='list_barcode'),
     path('barcode/dashboard', dashboard_barcode, name='dashboard_barcode'),

@@ -16,7 +16,7 @@ class GiftVoucher(models.Model):
   discount_price = models.DecimalField(max_digits=6, decimal_places=2)
   source_store = models.ForeignKey(Store, related_name='vales_origem', on_delete=models.CASCADE)
   usage_date = models.DateField(null=True, blank=True)
-  bar_code = models.CharField(null=True, max_length=13, validators=[validate_length])
+  bar_code = models.CharField(unique=True, null=True, max_length=13, validators=[validate_length])
   status_bar_code = models.BooleanField(default=False)
   store_used = models.ForeignKey(Store, related_name='vales_utilizados', on_delete=models.CASCADE, null=True, blank=True)
   purchase_date = models.DateField(null=True, blank=True)

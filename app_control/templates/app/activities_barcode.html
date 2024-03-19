@@ -4,11 +4,16 @@
 {% block content %}
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Vale presente cadastrado1111</h3>
+        <h3 class="card-title">Atividades de Vale Presente</h3>
     </div>
     <div class="card-body">
         <form action="{% url 'list_barcode' %}" method="get" class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar Código de Barra" aria-label="Buscar" name="query" value="{{ query }}">
+            <select class="form-control mr-sm-2" name="status">
+              <option value="" {% if request.GET.status == None %}selected{% endif %}>Todos</option>
+              <option value="True" {% if request.GET.status == "True" %}selected{% endif %}>Utilizado</option>
+              <option value="False" {% if request.GET.status == "False" %}selected{% endif %}>Não utilizado</option>
+          </select>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
         </form>
     </div>
@@ -21,6 +26,7 @@
                     <th>Valor</th>
                     <th>Loja Utilizada</th>
                     <th>Status</th>
+                    <th>Hora Utilizada</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -28,8 +34,8 @@
               {% for store in bar_code %}
               <tr>
                 <td>{{store.bar_code}}</td>
-                <td>{{store.GiftVoucher.source_store}}</td>
-                <td>{{store.GiftVoucher.discount_price}}</td>
+                <td>{{store.source_store}}</td>
+                <td>R$ {{ store.discount_price|floatformat:2 }}</td>
                 <td>
                     {% if store.store_used %}
                       {{ store.store_used }}
@@ -43,10 +49,11 @@
                     {% else %}
                       Não utilizado
                     {% endif %}
-                </td>                                   
+                </td>   
+                <td>{{ store.updated_at|date:"d/m/Y | H:i" }}</td>                               
                 <td>
-                    <a href="{% url 'edit_barcode' store.id %}"><i class="fa fa-cog"></i></a>
-                    <a href="{% url 'delete_barcode' store.id %}"><i class="fa fa-trash"></i></a>
+                    <a href="{% url 'edit_giftvoucher' store.id %}" class="mr-5"><i class="fa fa-cog"></i></a>
+                    <a href="{% url 'delete_giftvoucher' store.id %}"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
               {% endfor %}
@@ -55,5 +62,4 @@
     </div>
 
 </div>
-<a href="{% url 'add_barcode' %}" class="btn btn-primary">Cadastrar</a>
 {% endblock content %}

@@ -12,14 +12,16 @@
                 <tr>
                     <th>Loja</th>
                     <th>Valor</th>
+                    <th>Codigo de Barra</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
               {% for giftvoucher in giftvouchers %}
               <tr>
-                <td>{{giftvoucher.source_store}}</td>                        
-                <td>{{giftvoucher.discount_price}}</td>                        
+                <td>{{giftvoucher.source_store}}</td>                     
+                <td>R$ {{ giftvoucher.discount_price|floatformat:2 }}</td>                       
+                <td>{{giftvoucher.bar_code}}</td>                     
                 <td>
                     <a href="{% url 'edit_giftvoucher' giftvoucher.id %}" class="mr-5"><i class="fa fa-cog"></i></a>
                     <a href="{% url 'delete_giftvoucher' giftvoucher.id %}"><i class="fa fa-trash"></i></a>

@@ -1,0 +1,23 @@
+[33mcommit 3d20834f9abd276999248c412d4349c7409d8650[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: Carlos César <da.colombia0xff@gmail.com>
+Date:   Mon Mar 18 22:44:04 2024 -0300
+
+    feat: ajuste nas paginas html
+
+[33mcommit f207bfd2076b1b4a42d6a6e3aa6671bffbae5e84[m
+Author: Cesar Nascimento <cnascimento@dermage.com.br>
+Date:   Mon Mar 18 16:53:06 2024 -0300
+
+    feat: Construção do modelo final
+
+[33mcommit c9769aac4653263a4170d2f19271f5e6d753c4a3[m
+Author: Cesar Nascimento <cnascimento@dermage.com.br>
+Date:   Tue Mar 5 14:29:50 2024 -0300
+
+    feat: Implementado modelo do app control
+
+[33mcommit 4a9316c0b65932622d61c569bc96f2f86e4d5999[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Cesar Nascimento <cnascimento@dermage.com.br>
+Date:   Mon Mar 4 15:38:23 2024 -0300
+
+    first commit

@@ -117,81 +117,6 @@ def list_giftvoucher(request):
 
 
 @login_required
-def add_barcode(request):
-  if not request.user.is_staff:
-    return HttpResponseForbidden("Acesso negado. Você precisa ser administrador.")
-
-  gift_voucher_id = request.session.get('gift_voucher_id', None)
-
-  if request.method == 'POST':
-    form = AddGiftVoucherForm(request.POST)
-    if form.is_valid():
-      bar_code = form.save(commit=False)
-      if gift_voucher_id is not None:
-          # Se já temos um gift voucher na sessão, use-o
-          bar_code.GiftVoucher = get_object_or_404(GiftVoucher, id=gift_voucher_id)
-      bar_code.save()
-      # Atualiza o gift voucher na sessão
-      request.session['gift_voucher_id'] = bar_code.GiftVoucher.id
-      return redirect('add_barcode')  # Redireciona para a mesma página para adicionar outro código
-  else:
-    # Predefine o gift voucher no formulário se ele estiver na sessão
-    form = AddGiftVoucherForm(initial={'GiftVoucher': gift_voucher_id} if gift_voucher_id else {})
-
-  return render(request, 'app/add_barcode.html', {'form': form})
-
-
-@login_required
-def add_barcode(request):
-  if not request.user.is_staff:
-    return HttpResponseForbidden("Acesso negado. Você precisa ser administrador.")
-
-  gift_voucher_id = request.session.get('gift_voucher_id', None)
-
-  if request.method == 'POST':
-    form = AddBarCodeForm(request.POST)
-    if form.is_valid():
-      bar_code = form.save(commit=False)
-      if gift_voucher_id is not None:
-          # Se já temos um gift voucher na sessão, use-o
-          bar_code.GiftVoucher = get_object_or_404(GiftVoucher, id=gift_voucher_id)
-      bar_code.save()
-      # Atualiza o gift voucher na sessão
-      request.session['gift_voucher_id'] = bar_code.GiftVoucher.id
-      return redirect('add_barcode')  # Redireciona para a mesma página para adicionar outro código
-  else:
-    # Predefine o gift voucher no formulário se ele estiver na sessão
-    form = AddBarCodeForm(initial={'GiftVoucher': gift_voucher_id} if gift_voucher_id else {})
-
-  return render(request, 'app/add_barcode.html', {'form': form})
-
-
-@login_required
-def edit_barcode(request, id):
-  if not request.user.is_staff:
-    return HttpResponseForbidden("Acesso negado. Você precisa ser administrador.")
-  giftvoucher = BarCode.objects.get(id=id)
-  if request.method == 'POST':
-    form = AddBarCodeForm(request.POST, instance=giftvoucher)
-    if form.is_valid():
-        form.save()
-        return redirect('list_giftvoucher')
-  else:
-    form = AddBarCodeForm(instance=giftvoucher)
-
-  return render(request, 'app/list_giftvoucher.html', {'form': form})
-
-
-@login_required
-def delete_barcode(request, id):
-  if not request.user.is_staff:
-    return HttpResponseForbidden("Acesso negado. Você precisa ser administrador.")
-  barcode = get_object_or_404(BarCode, id=id)
-  barcode.delete()
-  return redirect('list_barcode')
-
-
-@login_required
 def list_barcode(request):
   giftvouchers = GiftVoucher.objects.all()
   query = request.GET.get('query', '')
@@ -202,13 +127,32 @@ def list_barcode(request):
 
 @login_required
 def dashboard_barcode(request):
-  bar_code = GiftVoucher.objects.all()
-  return render(request, 'app/dashboard_barcode.html', {'bar_code': bar_code})
+  giftvouchers = GiftVoucher.objects.all()
+  status_filter = request.GET.get('status')
+  search_query = request.GET.get('query')
+
+  if status_filter in ['True', 'False']:
+      status_boolean = status_filter == 'True'
+      giftvouchers = giftvouchers.filter(status_bar_code=status_boolean)
+  
+  if search_query:
+      giftvouchers = giftvouchers.filter(bar_code__icontains=search_query)
+
+  return render(request, 'app/dashboard_barcode.html', {'giftvouchers': giftvouchers})
 
 
 @login_required
 def activities_barcode(request):
-  bar_code = GiftVoucher.objects.filter(status_bar_code=False)
+  bar_code = GiftVoucher.objects.all()
+  status_filter = request.GET.get('status')
+  search_query = request.GET.get('query')
+
+  if status_filter in ['True', 'False']:
+      status_boolean = status_filter == 'True'
+      bar_code = bar_code.filter(status_bar_code=status_boolean)
+  
+  if search_query:
+      bar_code = bar_code.filter(bar_code__icontains=search_query)
   return render(request, 'app/activities_barcode.html', {'bar_code': bar_code})
 
 

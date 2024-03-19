@@ -16,6 +16,7 @@
 Links de navegação 
 {%endblock nav_heading%}
 {% block nav_links %}
+{% if user.is_staff %}
     <li class="nav-item has-tree-view ">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa fa-user"></i> <p>Usuários</p>
@@ -29,6 +30,7 @@ Links de navegação
                         </a>
                 </li>
         </ul>
+    </li>
     <li class="nav-item has-tree-view ">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-object-group"></i> <p>Cadastrar</p>
@@ -50,21 +52,7 @@ Links de navegação
     </li>
     <li class="nav-item has-tree-view ">
         <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-object-group"></i> <p>Painel</p>
-            <p><i class="right fas fa-angle-left"></i>
-            </p>
-        </a>
-        <ul class="nav nav-treeview menu-open">
-                <li class="nav-item">
-                        <a href="{% url 'dashboard_barcode' %}" class="nav-link">
-                            <i class="nav-icon fa fa-shopping-cart"></i> Vales Presentes
-                        </a>
-                </li>
-        </ul>
-    </li>
-    <li class="nav-item has-tree-view ">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-object-group"></i> <p>Vendas</p>
+            <i class="nav-icon fas fa-object-group"></i> <p>Relatório de Vendas</p>
             <p><i class="right fas fa-angle-left"></i>
             </p>
         </a>
@@ -76,4 +64,22 @@ Links de navegação
                 </li>
         </ul>
     </li>
+{% endif %}
+
+{% if user.is_authenticated %}
+    <li class="nav-item has-tree-view ">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-object-group"></i> <p>Painel de Vendas</p>
+            <p><i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview menu-open">
+                <li class="nav-item">
+                        <a href="{% url 'dashboard_barcode' %}" class="nav-link">
+                            <i class="nav-icon fa fa-shopping-cart"></i> Vales Presentes
+                        </a>
+                </li>
+        </ul>
+    </li>
+{% endif %}
 {% endblock nav_links %} 

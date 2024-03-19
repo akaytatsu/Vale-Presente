@@ -64,5 +64,5 @@ def editar_usuario(request, id):
   if form_usuario.is_valid():
     form_usuario.save()
     return redirect('listar_usuarios')
-  return render(request, 'usuarios/form_usuario.html', {'form_usuario': form_usuario})
+  return render(request, 'users/form_users.html', {'form_usuario': form_usuario})
 
