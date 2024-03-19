@@ -127,6 +127,22 @@ def list_barcode(request):
 
 @login_required
 def dashboard_barcode(request):
+  giftvouchers = GiftVoucher.objects.all() if request.GET else GiftVoucher.objects.none()
+  status_filter = request.GET.get('status')
+  search_query = request.GET.get('query')
+
+  if status_filter in ['True', 'False']:
+    status_boolean = status_filter == 'True'
+    giftvouchers = giftvouchers.filter(status_bar_code=status_boolean)
+
+  if search_query:
+    giftvouchers = giftvouchers.filter(bar_code__icontains=search_query)
+
+  return render(request, 'app/dashboard_barcode.html', {'giftvouchers': giftvouchers})
+
+
+@login_required
+def buy_giftvoucher(request):
   giftvouchers = GiftVoucher.objects.all()
   status_filter = request.GET.get('status')
   search_query = request.GET.get('query')
@@ -138,7 +154,7 @@ def dashboard_barcode(request):
   if search_query:
       giftvouchers = giftvouchers.filter(bar_code__icontains=search_query)
 
-  return render(request, 'app/dashboard_barcode.html', {'giftvouchers': giftvouchers})
+  return render(request, 'app/buy_giftvoucher.html', {'giftvouchers': giftvouchers})
 
 
 @login_required

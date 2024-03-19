@@ -17,5 +17,5 @@ urlpatterns = [
     path('barcode/list', list_barcode, name='list_barcode'),
     path('barcode/dashboard', dashboard_barcode, name='dashboard_barcode'),
     path('barcode/activities', activities_barcode, name='activities_barcode'),
-
+    path('gift/active', buy_giftvoucher, name='buy_giftvoucher'),
 ]

@@ -4,12 +4,12 @@
 {% block content %}
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Vendas Vale Presente</h3>
+        <h3 class="card-title">Vale presente cadastrado1111</h3>
     </div>
     <div class="card-body">
       <div class="card-body">
         <form action="{% url 'dashboard_barcode' %}" method="get" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar Código de Barra" aria-label="Buscar" name="query" value="{{ request.GET.query }}" maxlength="13">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar Código de Barra" aria-label="Buscar" name="query" value="{{ request.GET.query }}">
             
             <select class="form-control mr-sm-2" name="status">
                 <option value="">Todos os Status</option>
