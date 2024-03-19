@@ -33,6 +33,8 @@ AUTH_USER_MODEL = "user_control.CustomUser"
 # Application definition
 
 INSTALLED_APPS = [
+    'user_control',
+    'app_control',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,8 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adminlte3',
     'bootstrap4',
-    'user_control',
-    'app_control',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +126,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+LOGIN_REDIRECT_URL = 'listar_usuarios'
+
+LOGOUT_REDIRECT_URL = 'logar_usuario'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

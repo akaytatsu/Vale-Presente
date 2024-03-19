@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="card card-primary">
+  <div class="card-header">
+    <div class="card-title">
+      {% if request.resolver_match.url_name == 'add_giftvoucher' %}
+      Cadastrar Informações do Vale Presente
+      {% else %}
+      Editar Informações do Vale Presente
+      {% endif %}
+    </div>
+  </div>
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %} 
+      {% bootstrap_form form %}
+      <button class="btn btn-primary" type="submit">Salvar</button>
+    </form>
+  </div>
+</div>
+<a href="{% url 'list_giftvoucher' %}" class="btn btn-primary">Voltar</a>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+      // Substitua 'id_bar_code' pelo id real gerado para o campo do formulário.
+      document.getElementById('id_bar_code').focus();
+  });
+  </script>
+{% endblock content %}

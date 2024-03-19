@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Vale presente cadastrado</h3>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'list_barcode' %}" method="get" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar Código de Barra" aria-label="Buscar" name="query" value="{{ query }}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Codigo de barra</th>
+                    <th>Origem</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for store in bar_code %}
+              <tr>
+                <td>{{store.bar_code}}</td>
+                <td>{{store.GiftVoucher.source_store}}</td>
+                <td>{{store.GiftVoucher.discount_price}}</td>
+                <td style="{% if store.status_bar_code %}background-color: red;{% endif %}">
+                    {% if store.status_bar_code %}
+                      Utilizado
+                    {% else %}
+                      Não utilizado
+                    {% endif %}
+                </td>  
+                <td>
+                    <a href="{% url 'edit_barcode' store.id %}" class="mr-5"><i class="fa fa-cog"></i></a>
+                    <a href="{% url 'delete_barcode' store.id %}"><i class="fa fa-shopping-cart"></i></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<a href="{% url 'add_barcode' %}" class="btn btn-primary">Cadastrar</a>
+{% endblock content %}
